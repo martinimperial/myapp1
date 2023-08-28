@@ -8,3 +8,4 @@ GET http://{{host}}/status HTTP/1.1 Authorization: Bearer {{access_token}} conte
 GET http://{{host}}/tabledata HTTP/1.1 Authorization: Bearer {{access_token}} content-type: application/json
 
 ###
+# get, post, put, delete, patch

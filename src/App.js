@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import BasicButtons from "./components/BasicButtons";
 import BasicCard from "./components/BasicCard";
+import BasicCardEx from "./components/BasicCardEx";
 import RecipeReviewCard from "./components/RecipeReviewCard";
 import MediaCard from "./components/MediaCard";
 import SimpleDialog from "./components/SimpleDialog";
@@ -20,8 +21,45 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const emails = ["username@gmail.com", "user02@gmail.com"];
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const records = [
+  {
+    name: "Frozen yoghurt",
+    calories: 159,
+    fat: 6,
+    carbs: 24,
+    protein: 4,
+  },
+  {
+    name: "Ice cream sandwich",
+    calories: 237,
+    fat: 9,
+    carbs: 37,
+    protein: 4.3,
+  },
+  {
+    name: "Eclair",
+    calories: 262,
+    fat: 16.0,
+    carbs: 24,
+    protein: 6,
+  },
+  {
+    name: "Cupcake",
+    calories: 305,
+    fat: 3.7,
+    carbs: 67,
+    protein: 4.3,
+  },
+  {
+    name: "Gingerbread",
+    calories: 356,
+    fat: 16.0,
+    carbs: 49,
+    protein: 3.9,
+  },
+];
 
 function App() {
   const [count, setCount] = useState(0);
@@ -70,18 +108,25 @@ function App() {
           <Item>
             <Button
               onClick={() => {
-                handleClickOpen()
+                handleClickOpen();
               }}
             >
               Popup
             </Button>
             <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-      />
+              selectedValue={selectedValue}
+              open={open}
+              onClose={handleClose}
+            />
           </Item>
         </Grid>
+
+        {records.map((record, index) => (
+          <Grid container item xl={2} md={3} xs={12} key={index}>
+            <BasicCardEx record={record} index={index} />
+          </Grid>
+        ))}
+
         <Grid item xs={8}>
           <Item>{count}</Item>
         </Grid>
