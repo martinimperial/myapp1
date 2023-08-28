@@ -1,0 +1,10 @@
+@host = localhost:8080
+
+
+GET http://{{host}}/status HTTP/1.1 Authorization: Bearer {{access_token}} content-type: application/json
+
+###
+
+GET http://{{host}}/tabledata HTTP/1.1 Authorization: Bearer {{access_token}} content-type: application/json
+
+###
