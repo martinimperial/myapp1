@@ -122,7 +122,7 @@ function App() {
         </Grid>
 
         {records.map((record, index) => (
-          <Grid container item xl={2} md={3} xs={12} key={index}>
+          <Grid item xl={2} md={3} xs={12} key={index}>
             <BasicCardEx record={record} index={index} />
           </Grid>
         ))}
