@@ -12,6 +12,7 @@ import BasicCardEx from "./components/BasicCardEx";
 import RecipeReviewCard from "./components/RecipeReviewCard";
 import MediaCard from "./components/MediaCard";
 import SimpleDialog from "./components/SimpleDialog";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -23,50 +24,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
-const records = [
-  {
-    name: "Frozen yoghurt",
-    image: "yoghurt.jpeg",
-    calories: 159,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-  {
-    name: "Ice cream sandwich",
-    image: "icecream.jpeg",
-    calories: 237,
-    fat: 9,
-    carbs: 37,
-    protein: 4.3,
-  },
-  {
-    name: "Eclair",
-    image: "Eclair.jpeg",
-    calories: 262,
-    fat: 16.0,
-    carbs: 24,
-    protein: 6,
-  },
-  {
-    name: "Cupcake",
-    image: "cupcake.jpg",
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-  },
-  {
-    name: "Gingerbread",
-    image: "gingerbread.jpeg",
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-  },
-];
-
 function App() {
+  const [records, setRecords] = useState([]);
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(1);
   const [time, setTime] = useState(new Date().toDateString());
@@ -74,6 +33,21 @@ function App() {
 
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+
+
+  const fetchRecords = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/tabledata");
+      const data = await response.data;
+      setRecords(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchRecords();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
