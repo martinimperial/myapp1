@@ -26,6 +26,7 @@ const emails = ["username@gmail.com", "user02@gmail.com"];
 const records = [
   {
     name: "Frozen yoghurt",
+    image: "yoghurt.jpeg",
     calories: 159,
     fat: 6,
     carbs: 24,
@@ -33,6 +34,7 @@ const records = [
   },
   {
     name: "Ice cream sandwich",
+    image: "icecream.jpeg",
     calories: 237,
     fat: 9,
     carbs: 37,
@@ -40,6 +42,7 @@ const records = [
   },
   {
     name: "Eclair",
+    image: "Eclair.jpeg",
     calories: 262,
     fat: 16.0,
     carbs: 24,
@@ -47,6 +50,7 @@ const records = [
   },
   {
     name: "Cupcake",
+    image: "cupcake.jpg",
     calories: 305,
     fat: 3.7,
     carbs: 67,
@@ -54,6 +58,7 @@ const records = [
   },
   {
     name: "Gingerbread",
+    image: "gingerbread.jpeg",
     calories: 356,
     fat: 16.0,
     carbs: 49,
@@ -122,7 +127,7 @@ function App() {
         </Grid>
 
         {records.map((record, index) => (
-          <Grid item xl={2} md={3} xs={12} key={index}>
+          <Grid item xl={2} md={3} ms={4} xs={6} key={index}>
             <BasicCardEx record={record} index={index} />
           </Grid>
         ))}
