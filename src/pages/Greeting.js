@@ -3,7 +3,7 @@ import React from 'react'
 
 function Greeting(props) {
   return (
-    <div>Greeting</div>
+    <div>Greeting from register2</div>
   )
 }
 
