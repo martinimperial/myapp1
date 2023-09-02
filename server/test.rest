@@ -26,7 +26,16 @@ content-type: application/json
 
 {
     "user": "martin",
-    "password": "Password1"
+    "password": "password"
+}
+
+###
+
+
+POST http://{{host}}/products HTTP/1.1 Authorization: Bearer {{access_token}} 
+content-type: application/json
+
+{
 }
 
 ###

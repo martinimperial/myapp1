@@ -3,8 +3,7 @@ import { lazy } from 'react';
 // project import
 import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
-import Hello from '../pages/Hello';
-
+import Products from '../pages/Products';
 // ==============================
 
 // render - dashboard
@@ -45,6 +44,10 @@ const MainRoutes = {
     {
       path: 'icons/ant',
       element: <AntIcons />
+    },
+    {
+      path: 'products',
+      element: <Products />
     }
   ]
 };

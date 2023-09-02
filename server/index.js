@@ -139,11 +139,12 @@ app.post("/signin_old", (request, response) => {
 app.post("/signin", function (request, response, next) {
   const user = request.body.user;
   const password = request.body.password;
-
+  let done = false;
   connection.query("SELECT * FROM users ORDER BY id desc", (err, rows) => {
-
+  
     for(let i = 0; i <rows.length;i++){
       if(rows[i].username === user && rows[i].password === password){
+        done = true;
         response.send({
           "status": "ok",
           "user": user,
@@ -151,16 +152,23 @@ app.post("/signin", function (request, response, next) {
       }
     }
   
-    if (err) {
-      request.flash("error", err);
+    if(!done)
       response.send({
         status: "fail",
         user: user,
-      })};
-
-    response.send({
-        status: "fail",
-        user: user,
-      });     
+      });
   });
+  
 });
+
+
+app.post("/products", function (request, response, next) {
+
+  connection.query("SELECT p.ProductID, p.ProductName, s.SupplierName, c.CategoryName, c.Description, p.Unit, p.Price FROM products p  join categories c on c.CategoryID = p.CategoryID join suppliers s on s.SupplierID = p.SupplierID limit 10", (err, rows) => {
+        response.send({
+          "status": "ok",
+          "products": rows,
+      });
+    })
+});
+
