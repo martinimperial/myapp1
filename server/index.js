@@ -6,6 +6,18 @@ var mysql = require("mysql");
 const app = express();
 const PORT = 8080;
 
+const  queries = {
+  get_products: `SELECT p.ProductID, p.ProductName, s.SupplierName, c.CategoryName, c.Description, p.Unit, p.Price, p.PhotoUrl, p.ratings, p.Discount, p.Description as productDescription FROM products p  join categories c on c.CategoryID = p.CategoryID join suppliers s on s.SupplierID = p.SupplierID limit 10`,
+  get_users: "SELECT * FROM users ORDER BY id desc",
+  get_orders: `SELECT o.OrderID, o.OrderDate, p.ProductName, od.quantity, p.price*od.Quantity as price, c.customerName, e.firstName, e.LastName, s.ShipperName FROM orders o
+  JOIN customers c ON c.customerID = o.customerID
+  JOIN employees e ON e.EmployeeID = o.EmployeeID
+  JOIN shippers s ON s.ShipperID = o.ShipperID
+  JOIN order_details od ON od.orderID = o.orderID
+  JOIN products p ON p.ProductID = od.ProductID limit 10`
+}
+
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
@@ -47,6 +59,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/status", (request, response) => {
   const status = {
+
     Status: "Running",
   };
   response.send(status);
@@ -140,9 +153,8 @@ app.post("/signin", function (request, response, next) {
   const user = request.body.user;
   const password = request.body.password;
   let done = false;
-  connection.query("SELECT * FROM users ORDER BY id desc", (err, rows) => {
-  
-    for(let i = 0; i <rows.length;i++){
+  connection.query(queries.get_users, (err, rows) => {
+      for(let i = 0; i <rows.length;i++){
       if(rows[i].username === user && rows[i].password === password){
         done = true;
         response.send({
@@ -164,10 +176,23 @@ app.post("/signin", function (request, response, next) {
 
 app.post("/products", function (request, response, next) {
 
-  connection.query("SELECT p.ProductID, p.ProductName, s.SupplierName, c.CategoryName, c.Description, p.Unit, p.Price FROM products p  join categories c on c.CategoryID = p.CategoryID join suppliers s on s.SupplierID = p.SupplierID limit 10", (err, rows) => {
+  connection.query(queries.get_products, (err, rows) => {
         response.send({
           "status": "ok",
+
           "products": rows,
+      });
+    })
+});
+
+
+app.post("/orders", function (request, response, next) {
+
+  connection.query(queries.get_orders, (err, rows) => {
+        response.send({
+          "status": "ok",
+
+          "orders": rows,
       });
     })
 });

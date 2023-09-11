@@ -9,12 +9,10 @@ import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from '@mui/material/Tooltip';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,14 +33,7 @@ const bull = (
   </Box>
 );
 
-
-const TypographyEx = styled(Typography)({
-  textDecoration: "line-through",
-  color: "red",
-  FontFace: "Helvetica"
-});
-
-export default function ProductCard(props) {
+export default function OrderCard(props) {
   const [state, setState] = React.useState(props.record);
   const [expanded, setExpanded] = React.useState(false);
 
@@ -55,58 +46,90 @@ export default function ProductCard(props) {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
+  /*
+      "ShipperName": "Federal Shipping"
+  */
   return (
-    <Card
-      sx={{ minWidth: 150 }}
-      key={props.index}
-      alignItems="center"
-      justify="center"
-      style={{ minHeight: "250" }}
-      onClick={()=>{alert("Add to basket")}}
-    >
-      <Tooltip title={"Sold by: " + state.SupplierName}>
-      <CardHeader
-        title={state.ProductName}
-        subheader={state.CategoryName}
-      ></CardHeader>
-      </Tooltip>
+    <Card sx={{ minWidth: 150 }} key={props.index}>
+      <CardHeader title={state.ProductName}></CardHeader>
       <CardMedia
-        sx={{ height: 200, width: "100%", align: "center" }}
-        image={state.PhotoUrl}
+        sx={{ height: 140 }}
+        image={"/static/images/cards/yoghurt.jpeg" }
         title="green iguana"
       />
       <CardContent>
         <Paper sx={{ p: 2, maxWidth: 250 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h5" color="black">
-                {state.Description}
-              </Typography>
-              <Typography variant="h5" color="black">
-                {state.productDescription}
-              </Typography>
+              <Typography>OrderID</Typography>
+              <TextField
+                fullWidth
+                //label={"OrderID:"}
+                value={state.OrderID}
+                name="OrderID"
+                type
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              ></TextField>
             </Grid>
             <Grid item xs={12}>
-              <Typography color="grey" inline>{state.Unit}</Typography>
+              <TextField
+                fullWidth
+                label={"OrderDate:"}
+                value={new Date(state.OrderDate).toDateString()}
+                name={"OrderDate"}
+                onChange={handleChange}
+              ></TextField>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h5" noWrap display="inline">
-                £{state.Price}{"  "}
-              </Typography>
-              <TypographyEx variant="h5" noWrap display="inline">
-                £{state.Discount}
-              </TypographyEx>
+              <Typography>Quantity</Typography>
+              <TextField
+                fullWidth
+                //label={"quantity:"}
+                value={state.quantity}
+                name={"quantity"}
+                onChange={handleChange}
+              ></TextField>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex" }}>
-              {Array.from({ length: state.ratings }, (_, i) => (
-                <Avatar
-                  key={i}
-                  variant={"rounded"}
-                  alt="The image"
-                  src={"/static/images/cards/star.jpeg"}
-                  style={{ width: 24, height: 24 }}
-                />
-              ))}
+            <Grid item xs={12}>
+              
+              <TextField
+                fullWidth
+                label={"price:"}
+                value={state.price}
+                name={"price"}
+                onChange={handleChange}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>customerName</Typography>
+              <TextField
+                fullWidth
+                //label={"customerName:"}
+                value={state.customerName}
+                name={"customerName"}
+                onChange={handleChange}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>Employee Name</Typography>
+              <TextField
+                fullWidth
+                //label={"Name:"}
+                value={state.firstName + ' ' + state.LastName} 
+                name={"Unit"}
+                onChange={handleChange}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label={"ShipperName:"}
+                value={state.ShipperName}
+                name={"ShipperName"}
+                onChange={handleChange}
+              ></TextField>
             </Grid>
           </Grid>
         </Paper>

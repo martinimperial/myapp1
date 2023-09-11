@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
 import Products from '../pages/Products';
+import Orders from '../pages/Orders';
 // ==============================
 
 // render - dashboard
@@ -48,6 +49,10 @@ const MainRoutes = {
     {
       path: 'products',
       element: <Products />
+    },
+    {
+      path: 'orders',
+      element: <Orders />
     }
   ]
 };

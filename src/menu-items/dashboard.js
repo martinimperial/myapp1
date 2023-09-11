@@ -1,11 +1,13 @@
 // assets
 import { DashboardOutlined } from '@ant-design/icons';
 import CategoryIcon from '@mui/icons-material/Category';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 // icons
 const icons = {
   DashboardOutlined,
-  CategoryIcon
+  CategoryIcon,
+  AddShoppingCartIcon
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -29,6 +31,14 @@ const dashboard = {
       type: 'item',
       url: '/products',
       icon: icons.CategoryIcon,
+      breadcrumbs: false
+    },
+    {
+      id: 'orders',
+      title: 'Orders',
+      type: 'item',
+      url: '/orders',
+      icon: icons.AddShoppingCartIcon,
       breadcrumbs: false
     }
   ]

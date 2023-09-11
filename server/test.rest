@@ -1,4 +1,5 @@
 @host = localhost:8080
+{access_token}
 
 
 GET http://{{host}}/status HTTP/1.1 Authorization: Bearer {{access_token}} content-type: application/json
@@ -35,6 +36,16 @@ content-type: application/json
 POST http://{{host}}/products HTTP/1.1 Authorization: Bearer {{access_token}} 
 content-type: application/json
 
+{
+}
+
+###
+
+
+
+POST http://{{host}}/orders HTTP/1.1 Authorization: Bearer {{access_token}} 
+content-type: application/json
+/
 {
 }
 

@@ -14,6 +14,15 @@
             "type": "node"
         },
         {
+            "name": "Data Structure Programme",
+            "program": "${workspaceFolder}/server/bubble_sort.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },        
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
