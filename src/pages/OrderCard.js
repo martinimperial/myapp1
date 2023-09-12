@@ -74,13 +74,19 @@ export default function OrderCard(props) {
               </Typography>
               <Typography variant="h6" color="black">
                 <i>Quantity: </i>
-                {state.quantity}
+                {state.Quantity}
               </Typography>
               <Typography variant="h6" color="black">
                 <i>Unit Price: </i>£{state.Price}
               </Typography>
               <Typography variant="h6" color="black">
                 <i>Order Price: </i>£{state.orderPrice}
+              </Typography>
+              <Typography variant="h6" color="black">
+                <i>Customer Name: </i>{state.CustomerName}
+              </Typography>
+              <Typography variant="h6" color="black">
+                <i>Employee Name: </i>{state.EmployeeName}
               </Typography>
             </Grid>
           </Grid>

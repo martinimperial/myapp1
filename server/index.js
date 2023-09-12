@@ -17,10 +17,12 @@ const  queries = {
     JOIN products p ON p.ProductID = od.ProductID 
     JOIN categories cat ON cat.categoryID = p.categoryID
     limit 10`,
-    get_order: `select p.ProductName, c.CategoryName, concat(c.Description, ' ', p.Description) as Description, p.Price, o.*, od.* from orders o 
+    get_order: `select cust.CustomerName, concat(e.FirstName, ' ',  e.LastName) as EmployeeName, p.ProductName, c.CategoryName, concat(c.Description, ' ', p.Description) as Description, p.Price, p.Price*od.Quantity as orderPrice, o.*, od.* from orders o 
     join order_details od on od.orderID = o.orderID
     join products p on p.productID = od.ProductID
     join categories c on c.categoryID = p.CategoryID
+    join customers cust on cust.customerID = o.CustomerID
+    join employees e on e.employeeID = o.EmployeeID
     where o.OrderID = 10444`,
 }
 
