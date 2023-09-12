@@ -40,6 +40,14 @@ const dashboard = {
       url: '/orders',
       icon: icons.AddShoppingCartIcon,
       breadcrumbs: false
+    },
+    {
+      id: 'order',
+      title: 'Order',
+      type: 'item',
+      url: '/order',
+      icon: icons.AddShoppingCartIcon,
+      breadcrumbs: false
     }
   ]
 };

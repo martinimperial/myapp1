@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import OrdersCard from "./OrdersCard";
+import OrderCard from "./OrderCard";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+
 export default function Orders() {
   const [records, setRecords] = useState([]);
 
@@ -57,7 +58,7 @@ export default function Orders() {
         </Grid>
         {records.map((record, index) => (
           <Grid item xs={12} key={index}>
-            <OrdersCard record={record} index={index} />
+            <OrderCard record={record} index={index} />
           </Grid>
         ))}
         <Grid item xs={12}>
@@ -65,29 +66,27 @@ export default function Orders() {
             <Grid
               container
               direction="column"
-              justifyContent="flex-between"
-              alignItems="flex-between"
+              justifyContent="flex-end"
+              alignItems="flex-end"
             >
-              <Grid item xs={12} align="right">
-                <Typography variant="h3" noWrap={true} display="inline">
-                  Subtotal ({getTotalItems()} items):
-                </Typography>
-                <Typography variant="h3" noWrap={true} display="inline"> £{getTotalPrice()}</Typography>
+              <Grid item xs={12}>
+                <Typography variant="h6" sx={{marginBottom: 2}}>
+                  Subtotal ({getTotalItems()} items):£{getTotalPrice()}</Typography>
               </Grid>
-              <Grid item xs={12} align="right">
-                <Typography variant="h6" noWrap={true} display="inline">
+              <Grid item xs={12}>
+              <Typography variant="h6" sx={{marginBottom: 2}}>
                   VAT: £{(getTotalPrice() * 0.2).toFixed(2)}
                 </Typography>
               </Grid>
-              <Grid item xs={12} align="right">
-                <Typography variant="h5" sx={{marginBottom: 2}}>
-                  Total to Pay: £
+              <Grid item xs={12}  sx={{marginBottom: 2}}>
+                <Typography variant="h5">
+                  Total to pay: £
                   {(getTotalPrice() + getTotalPrice() * 0.2).toFixed(2)}
                 </Typography>
               </Grid>
-              <Grid item xs={12} align='center'>
-                <Button variant="contained" onClick={()=>alert("Hello")}>
-                  Checkout
+              <Grid item xs={12}>
+                <Button variant="contained" onClick={()=>alert("checkout")}>
+                  Check out Now
                 </Button>
               </Grid>
             </Grid>

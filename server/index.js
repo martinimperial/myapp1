@@ -7,14 +7,21 @@ const app = express();
 const PORT = 8080;
 
 const  queries = {
-  get_products: `SELECT p.ProductID, p.ProductName, s.SupplierName, c.CategoryName, c.Description, p.Unit, p.Price, p.PhotoUrl, p.ratings, p.Discount, p.Description as productDescription FROM products p  join categories c on c.CategoryID = p.CategoryID join suppliers s on s.SupplierID = p.SupplierID limit 10`,
+  get_products: `SELECT p.ProductID, p.ProductName, s.SupplierName, c.CategoryName, c.Description, p.Unit, p.Price, p.PhotoUrl, p.ratings, p.Discount, p.Description as productDescription FROM products p join categories c on c.CategoryID = p.CategoryID join suppliers s on s.SupplierID = p.SupplierID limit 10`,
   get_users: "SELECT * FROM users ORDER BY id desc",
-  get_orders: `SELECT o.OrderID, o.OrderDate, p.ProductName, od.quantity, p.price*od.Quantity as price, c.customerName, e.firstName, e.LastName, s.ShipperName FROM orders o
-  JOIN customers c ON c.customerID = o.customerID
-  JOIN employees e ON e.EmployeeID = o.EmployeeID
-  JOIN shippers s ON s.ShipperID = o.ShipperID
-  JOIN order_details od ON od.orderID = o.orderID
-  JOIN products p ON p.ProductID = od.ProductID limit 10`
+    get_orders: `SELECT o.OrderID, o.OrderDate, p.ProductName, od.quantity, p.price as Price, p.price*od.Quantity as orderPrice, c.customerName, e.firstName, e.LastName, s.ShipperName, cat.Description, p.Description as pro FROM orders o
+    JOIN customers c ON c.customerID = o.customerID
+    JOIN employees e ON e.EmployeeID = o.EmployeeID
+    JOIN shippers s ON s.ShipperID = o.ShipperID
+    JOIN order_details od ON od.orderID = o.orderID
+    JOIN products p ON p.ProductID = od.ProductID 
+    JOIN categories cat ON cat.categoryID = p.categoryID
+    limit 10`,
+    get_order: `select p.ProductName, c.CategoryName, concat(c.Description, ' ', p.Description) as Description, p.Price, o.*, od.* from orders o 
+    join order_details od on od.orderID = o.orderID
+    join products p on p.productID = od.ProductID
+    join categories c on c.categoryID = p.CategoryID
+    where o.OrderID = 10444`,
 }
 
 
@@ -65,88 +72,49 @@ app.get("/status", (request, response) => {
   response.send(status);
 });
 
-app.get("/tabledata", (request, response) => {
-  const tabledata = [
-    {
-      name: "Frozen yoghurt",
-      image: "yoghurt.jpeg",
-      calories: 159,
-      fat: 6,
-      carbs: 24,
-      protein: 4,
-    },
-    {
-      name: "Ice cream sandwich",
-      image: "icecream.jpeg",
-      calories: 237,
-      fat: 9,
-      carbs: 37,
-      protein: 4.3,
-    },
-    {
-      name: "Eclair",
-      image: "Eclair.jpeg",
-      calories: 262,
-      fat: 16.0,
-      carbs: 24,
-      protein: 6,
-    },
-    {
-      name: "Cupcake",
-      image: "cupcake.jpg",
-      calories: 305,
-      fat: 3.7,
-      carbs: 67,
-      protein: 4.3,
-    },
-    {
-      name: "Gingerbread",
-      image: "gingerbread.jpeg",
-      calories: 356,
-      fat: 16.0,
-      carbs: 49,
-      protein: 3.9,
-    },
-  ];
-  response.send(tabledata);
+
+  app.get("/", (request, response) => {
+    const status = {
+  
+      Status: "Hello",
+    };
+    response.send(status);
 });
 
-app.post("/signin_old", (request, response) => {
-  const userTable = [
-    {
-      user: "admin",
-      password: "Password1",
-    },
-    {
-      user: "user1",
-      password: "Password1",
-    },
-    {
-      user: "user2",
-      password: "Password1",
-    },
-    {
-      user: "martin",
-      password: "Password1",
-    },
-  ];
+  app.post("/products", function (request, response, next) {
 
-  const user = request.body.user;
-  const password = request.body.password;
-  for (let i = 0; i < userTable.length; i++) {
-    if (userTable[i].user === user && userTable[i].password === password) {
-      response.send({
-        status: "ok",
-        user: user,
-      });
-    }
-  }
+    connection.query(queries.get_products, (err, rows) => {
+          response.send({
+            "status": "ok",
 
-  response.send({
-    status: "fail",
-    user: user,
+            "products": rows,
+        });
+      })
   });
-});
+  
+  
+  app.post("/orders", function (request, response, next) {
+  
+    connection.query(queries.get_orders, (err, rows) => {
+      response.send({
+            "status": "ok",
+  
+            "orders": rows,
+      });
+      })
+  });
+
+  app.post("/order", function (request, response, next) {
+
+    connection.query(queries.get_order, (err, rows) => {
+  response.send({
+            "status": "ok",
+  
+            "order": rows,
+        });
+      })
+  });
+  
 
 // display user page
 app.post("/signin", function (request, response, next) {
@@ -172,28 +140,3 @@ app.post("/signin", function (request, response, next) {
   });
   
 });
-
-
-app.post("/products", function (request, response, next) {
-
-  connection.query(queries.get_products, (err, rows) => {
-        response.send({
-          "status": "ok",
-
-          "products": rows,
-      });
-    })
-});
-
-
-app.post("/orders", function (request, response, next) {
-
-  connection.query(queries.get_orders, (err, rows) => {
-        response.send({
-          "status": "ok",
-
-          "orders": rows,
-      });
-    })
-});
-

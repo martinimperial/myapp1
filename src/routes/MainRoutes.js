@@ -5,6 +5,7 @@ import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
 import Products from '../pages/Products';
 import Orders from '../pages/Orders';
+import Order from '../pages/Order';
 // ==============================
 
 // render - dashboard
@@ -53,6 +54,10 @@ const MainRoutes = {
     {
       path: 'orders',
       element: <Orders />
+    },
+    {
+      path: 'order',
+      element: <Order />
     }
   ]
 };

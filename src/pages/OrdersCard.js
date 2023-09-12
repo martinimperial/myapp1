@@ -34,7 +34,7 @@ const bull = (
   </Box>
 );
 
-export default function OrderCard(props) {
+export default function OrdersCard(props) {
   const [state, setState] = React.useState(props.record);
   const [expanded, setExpanded] = React.useState(false);
 

@@ -16,6 +16,7 @@ content-type: application/json
 
 {
     "user": "user1",
+
     "password": "Password2"
 }
 
@@ -43,11 +44,22 @@ content-type: application/json
 
 
 
-POST http://{{host}}/orders HTTP/1.1 Authorization: Bearer {{access_token}} 
+POST http://{{host}}/order HTTP/1.1
 content-type: application/json
-/
+
 {
 }
 
 ###
+
+
+
+POST http://{{host}}/orders HTTP/1.1
+content-type: application/json
+
+{
+}
+
+###
+
 # get, post, put, delete, patch

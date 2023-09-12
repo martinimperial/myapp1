@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import OrdersCard from "./OrdersCard";
+import OrderCard from "./OrderCard";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -11,7 +11,7 @@ export default function Orders() {
   const fetchRecords = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/orders",
+        "http://localhost:8080/order",
         {},
         {
           headers: {
@@ -21,7 +21,7 @@ export default function Orders() {
         }
       );
       const data = await response.data;
-      setRecords(data.orders);
+      setRecords(data.order);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -57,7 +57,7 @@ export default function Orders() {
         </Grid>
         {records.map((record, index) => (
           <Grid item xs={12} key={index}>
-            <OrdersCard record={record} index={index} />
+            <OrderCard record={record} index={index} />
           </Grid>
         ))}
         <Grid item xs={12}>
